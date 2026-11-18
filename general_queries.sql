@@ -1,25 +1,30 @@
-/* Working out which carrier providers run the most flights.*/
+/* Working out which carrier providers run the most flights.
 SELECT OP_CARRIER, 
 COUNT(*) AS N_FLIGHTS,
 ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (), 2) AS PERCENTAGE
 FROM flights GROUP BY OP_CARRIER 
 ORDER BY N_FLIGHTS DESC;
+*/
 
 /* Working out the number of flights delayed by each carrier and the average
-delay time in minutes.*/
+delay time in minutes.
 SELECT OP_CARRIER, 
 COUNT(*) AS DELAYED_FLIGHTS,
 AVG(TOTAL_DELAY) AS AVERAGE_DELAY
 FROM flights WHERE TOTAL_DELAY > 0 GROUP BY OP_CARRIER 
 ORDER BY AVERAGE_DELAY DESC;
+*/
 
-/* Calculating the probability that a given flight is delayed across carriers.*/
+/* Calculating the probability that a given flight is delayed across carriers.
 SELECT OP_CARRIER,
 ROUND(1.0*SUM(CASE WHEN TOTAL_DELAY > 0 THEN 1 ELSE 0 END)/COUNT(*), 2) AS PROBABILITY_OF_DELAY
 FROM flights GROUP BY OP_CARRIER
 ORDER BY PROBABILITY_OF_DELAY DESC;
+*/
 
+/* sd
 SELECT OP_CARRIER,
 ROUND(1.0*SUM(CASE WHEN TOTAL_DELAY <= 0 THEN 1 ELSE 0 END)/COUNT(*), 2) AS PROBABILITY_OF_ADVANCE
 FROM flights GROUP BY OP_CARRIER
 ORDER BY PROBABILITY_OF_ADVANCE DESC;
+*/
